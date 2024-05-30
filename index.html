@@ -14,20 +14,22 @@
         <form action="" class="edit-budget">
           <h3>Edit Budget</h3>
           <label for="edit-budget">Your budget</label>
-          <input type="number" name="edit-budget" class="input-budget">
+          <input type="number" name="edit-budget" class="input-budget" placeholder="1000$">
           <input type="submit" value="Set Budget" class="set-budget">
         </form>
         <form action="" class="add-transaction">
           <h3>Add Transaction</h3>
-          <div class="transaction-name">
-            <label for="transaction-name">Transaction Name</label>
-            <input type="text" name="transaction-name">
+          <div class="transaction">
+            <div class="transaction-name">
+              <label for="transaction-name">Transaction Name</label>
+              <input type="text" name="transaction-name" class="transaction-name-input" placeholder="Transaction purpose">
+            </div>
+            <div class="transaction-cost">
+              <label for="transaction-cost">Transaction Cost</label>
+              <input type="number" name="transaction-cost" class="transaction-cost-input" placeholder="100$">
+            </div>
           </div>
-          <div class="transaction-cost">
-            <label for="transaction-cost">Transaction Cost</label>
-            <input type="number" name="transaction-cost">
-            <input type="submit" value="Add Transaction">
-          </div>
+          <input type="submit" value="Add Transaction" class="submit-btn">
         </form>
         <!-- <div class="user-data"> -->
         <div class="budget"></div>
