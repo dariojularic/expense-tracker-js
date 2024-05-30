@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expense Tracker</title>
   </head>
@@ -14,30 +15,51 @@
         <form action="" class="edit-budget">
           <h3>Edit Budget</h3>
           <label for="edit-budget">Your budget</label>
-          <input type="number" name="edit-budget" class="input-budget" placeholder="1000$">
+          <input type="number" name="edit-budget" class="input-budget" id="edit-budget" placeholder="1000$">
           <input type="submit" value="Set Budget" class="set-budget">
         </form>
         <form action="" class="add-transaction">
           <h3>Add Transaction</h3>
           <div class="transaction">
-            <div class="transaction-name">
-              <label for="transaction-name">Transaction Name</label>
-              <input type="text" name="transaction-name" class="transaction-name-input" placeholder="Transaction purpose">
+            <div class="transaction-purpose">
+              <label for="transaction-purpose">Transaction Purpose</label>
+              <input type="text" name="transaction-purpose" class="input-transaction-purpose" id="transaction-purpose" placeholder="Food, drinks, gas, etc...">
             </div>
             <div class="transaction-cost">
               <label for="transaction-cost">Transaction Cost</label>
-              <input type="number" name="transaction-cost" class="transaction-cost-input" placeholder="100$">
+              <input type="number" name="transaction-cost" class="input-transaction-cost" id="transaction-cost" placeholder="100$">
             </div>
           </div>
           <input type="submit" value="Add Transaction" class="submit-btn">
         </form>
         <!-- <div class="user-data"> -->
-        <div class="budget"></div>
-        <div class="expenses"></div>
-        <div class="balance"></div>
+        <div class="budget">
+          <i class="fa-solid fa-credit-card"></i> 
+          <div class="budget-show">
+            <p class="total-budget"></p>
+            <p>Budget</p>
+          </div>
+        </div>
+        <div class="expenses">
+          <i class="fa-solid fa-coins"></i>
+          <div class="expenses-show">
+            <p class="total-expenses"></p>
+            <p>Expenses</p>
+          </div>
+        </div>
+        <div class="balance">
+          <i class="fa-solid fa-sack-dollar"></i>
+          <div class="balance-show">
+            <p class="total-balance"></p>
+            <p>Balance</p>
+          </div>
+        </div>
         <!-- </div> -->
       </div>
+      <ol class="transaction-list"></ol>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
+
+<!-- input id -->

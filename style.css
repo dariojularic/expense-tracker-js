@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 body {
   background-color: rgb(230, 230, 230);
+  font-family: 'Roboto', sans-serif;
 }
 
 .container {
@@ -11,6 +14,7 @@ body {
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  /* grid-template-columns: 1fr 200px; */
   grid-template-rows: repeat(3, 1fr);
   width: 60%;
   height: 400px;
@@ -24,42 +28,60 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  padding: 16px;
 }
 
 .add-transaction {
+  padding: 16px;
   grid-area: 1 / 2 / 3 / 4;
   background-color: white;
   border-radius: 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
 }
 
 .budget {
   grid-area: 3 / 1 / 4 / 2;
   background-color: white;
   border-radius: 24px;
+  display: flex;
+  align-items: center;
+  padding: 16px;
 }
 
 .expenses {
   grid-area: 3 / 2 / 4 / 3;
   background-color: white;
   border-radius: 24px;
+  display: flex;
+  align-items: center;
+  padding: 16px;
 }
 
 .balance {
   grid-area: 3 / 3 / 4 / 4;
   background-color: white;
   border-radius: 24px;
+  display: flex;
+  align-items: center;
+  padding: 16px;
 }
 
 .set-budget {
   padding: 12px 24px;
-  background-color: royalblue;
+  background-color: rgb(75, 112, 222);
   border-radius: 16px;
   color: white;
   font-weight: 700;
   font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.set-budget:hover {
+  background-color: rgb(54, 97, 229);
 }
 
 .input-budget {
@@ -93,9 +115,25 @@ body {
   width: 50%;
   align-self: center;
   padding: 12px 24px;
-  background-color: royalblue;
+  background-color: rgb(75, 112, 222);
   border-radius: 16px;
   color: white;
   font-weight: 700;
   font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: rgb(54, 97, 229);
+}
+
+h3 {
+  font-size: 32px;
+  margin: 16px;
+}
+
+i {
+  font-size: 64px;
+  color: rgba(40, 164, 40, 0.9);
 }
