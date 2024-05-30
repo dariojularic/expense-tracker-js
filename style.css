@@ -97,14 +97,14 @@ body {
   justify-content: space-between;
 }
 
-.transaction-cost-input {
+.input-transaction-cost {
   width: 90%;
   height: 40px;
   border-radius: 8px;
   border: 1px solid;
 }
 
-.transaction-name-input {
+.input-transaction-purpose {
   width: 90%;
   height: 40px;
   border-radius: 8px;

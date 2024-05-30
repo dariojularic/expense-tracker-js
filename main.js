@@ -1,4 +1,4 @@
-// import './style.css'
+import './style.css'
 
 const totalBudget = document.querySelector(".total-budget");
 const totalExpenses = document.querySelector(".total-expenses");
