@@ -7,3 +7,4 @@ const inputBudget = document.querySelector(".input-budget");
 const inputTransactionPurpose = document.querySelector(".input-transaction-purpose");
 const inputTransactionCost = document.querySelector(".input-transaction-cost");
 const transactionList = document.querySelector(".transaction-list");
+
