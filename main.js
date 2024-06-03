@@ -121,8 +121,9 @@ transactionForm.addEventListener("submit", (event) => {
   const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
 
   clearTransactionInput()
-  console.log(transaction)
+  transactionManager.addTransaction(transaction)
+  // transactionManager.renderTransactions()
 
-  // transactionManager.addTransaction()
+
 })
 // console.log(budgetManager) 
