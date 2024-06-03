@@ -123,7 +123,8 @@ transactionForm.addEventListener("submit", (event) => {
   clearTransactionInput()
   transactionManager.addTransaction(transaction)
   // transactionManager.renderTransactions()
-
+  displayBalance()
+  displayExpenses()
 
 })
 // console.log(budgetManager) 
