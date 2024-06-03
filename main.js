@@ -86,6 +86,14 @@ function displayBalance() {
   totalBalance.textContent = `$${budgetManager.balance}`
 }
 
+function clearBudgetInput() {
+  inputBudget.value = ""
+}
+
+function clearTransactionInput() {
+  inputTransactionCost.value = ""
+  inputTransactionPurpose.value = ""
+}
 
 const transactionManager = new TransactionManager
 const budgetManager = new BudgetManager
@@ -102,10 +110,19 @@ budgetForm.addEventListener("submit", (event) => {
   event.preventDefault()
   budgetManager.setBudget(inputBudget.value)
   inputBudget.value = ""
+  clearBudgetInput()
   displayBudget()
   displayBalance()
   displayExpenses()
 })
 
-// transactionForm.addEventListener("submit")
+transactionForm.addEventListener("submit", (event) => {
+  event.preventDefault()
+  const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
+
+  clearTransactionInput()
+  console.log(transaction)
+
+  // transactionManager.addTransaction()
+})
 // console.log(budgetManager) 
