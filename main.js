@@ -7,6 +7,8 @@ const inputBudget = document.querySelector(".input-budget");
 const inputTransactionPurpose = document.querySelector(".input-transaction-purpose");
 const inputTransactionCost = document.querySelector(".input-transaction-cost");
 const transactionList = document.querySelector(".transaction-list");
+const budgetForm = document.querySelector(".edit-budget");
+const transactionForm = document.querySelector(".add-transaction");
 
 class Transaction{
   constructor(cost, purpose) {
@@ -48,22 +50,62 @@ class TransactionManager{
 // budget manager total budget, total expenses, total balance
 
 class BudgetManager{
-  constructor(totalBudget) {
-    this.totalBudget = totalBudget
-    this.totalExpenses = 0
+  constructor() {
+    this.budget = 0
+    this.expenses = 0
     // sta dodijelit na totalBalance
-    this.totalBalance = totalBudget
+    this.balance = 0
+  }
+
+  setBudget(budget) {
+    this.budget = budget
   }
 
   // pregledat ovu funkciju
   calculateExpenses(transactionsArray) {
-    this.totalExpenses = 0
+    this.expenses = 0
     transactionsArray.forEach(transaction => {
-      this.totalExpenses += transaction.cost
+      this.expenses += transaction.cost
     })
   }
 
   setBalance() {
-    this.totalBalance = this.totalBudget - this.totalExpenses
+    this.balance = this.budget - this.expenses
   }
 }
+
+function displayBudget() {
+  totalBudget.textContent = `$${budgetManager.budget}`
+}
+
+function displayExpenses() {
+  totalExpenses.textContent = `$${budgetManager.expenses}`
+}
+
+function displayBalance() {
+  totalBalance.textContent = `$${budgetManager.balance}`
+}
+
+
+const transactionManager = new TransactionManager
+const budgetManager = new BudgetManager
+displayBudget()
+displayBalance()
+displayExpenses()
+
+
+// inputBudget.addEventListener("input", (event) => {  
+//   budgetManager.setBudget(event.target.value)
+// })
+
+budgetForm.addEventListener("submit", (event) => {
+  event.preventDefault()
+  budgetManager.setBudget(inputBudget.value)
+  inputBudget.value = ""
+  displayBudget()
+  displayBalance()
+  displayExpenses()
+})
+
+// transactionForm.addEventListener("submit")
+// console.log(budgetManager) 
