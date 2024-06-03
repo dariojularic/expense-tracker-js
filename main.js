@@ -63,7 +63,7 @@ class BudgetManager{
 
   // pregledat ovu funkciju
   calculateExpenses(transactionsArray) {
-    this.expenses = 0
+    this.expenses = ""
     transactionsArray.forEach(transaction => {
       this.expenses += transaction.cost
     })
@@ -123,6 +123,8 @@ transactionForm.addEventListener("submit", (event) => {
   clearTransactionInput()
   transactionManager.addTransaction(transaction)
   // transactionManager.renderTransactions()
+  budgetManager.calculateExpenses(transactionManager.transactionArray)
+  budgetManager.setBalance()
   displayBalance()
   displayExpenses()
 
