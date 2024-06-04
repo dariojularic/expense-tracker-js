@@ -43,7 +43,7 @@ class TransactionManager {
     // jos doradit ovu funkciju
     transactionList.innerHTML = ""
     this.transactionArray.forEach(transaction => {
-      const html = `<li>${transaction.purpose} ${transaction.cost} ${format(transaction.date, "dd/MMMM/yyyy")} <button>Remove</button></li>`;
+      const html = `<li>${transaction.purpose} ${transaction.cost} ${format(transaction.date, "HH:mm dd/MMMM/yyyy")} <button>Remove</button></li>`;
       transactionList.insertAdjacentHTML("afterbegin", html)
     })
 
@@ -103,7 +103,7 @@ class IncomeManager {
 
   renderIncomes(incomeArray) {
     incomeArray.forEach(income => {
-      const html = `<li>${income.amount} ${format(income.date, "dd/MM/yyyy")}  ${income.date.getDate()} ${income.date.toLocaleString("default", { month: "short" })} ${income.date.getFullYear()}<button>Remove</button></li>`;
+      const html = `<li>${income.amount} ${format(income.date, "dd/MM/yyyy")} <button>Remove</button></li>`;
       incomeList.insertAdjacentHTML("afterbegin", html)
     })
   }
