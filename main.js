@@ -15,7 +15,7 @@ class Transaction{
     this.cost = cost
     this.purpose = purpose
     this.id = self.crypto.randomUUID()
-    // this.day = 
+    this.date = new Date()
     // this.time = 
     // kako pisat id?
   }
@@ -38,8 +38,8 @@ class TransactionManager{
     // jos doradit ovu funkciju
     transactionList.innerHTML = ""
     this.transactionArray.forEach(transaction => {
-      const html = `<li>${transaction.purpose} ${transaction.cost} <button>Remove</button></li>`;
-      transactionList.insertAdjacentElement("afterbegin", html)
+      const html = `<li>${transaction.purpose} ${transaction.cost} ${transaction.date.getDate()} ${transaction.date.toLocaleString("default", { month: "short" })} ${transaction.date.getFullYear()}<button>Remove</button></li>`;
+      transactionList.insertAdjacentHTML("afterbegin", html)
     })
 
   }
@@ -63,14 +63,16 @@ class BudgetManager{
 
   // pregledat ovu funkciju
   calculateExpenses(transactionsArray) {
-    this.expenses = ""
+    this.expenses = 0
+    // pretvorit u broj
     transactionsArray.forEach(transaction => {
-      this.expenses += transaction.cost
+      this.expenses += parseInt(transaction.cost)
     })
   }
-
+  
   setBalance() {
-    this.balance = this.budget - this.expenses
+    // pretvorit u broj
+    this.balance = parseInt(this.budget - this.expenses)
   }
 }
 
@@ -108,25 +110,34 @@ displayExpenses()
 
 budgetForm.addEventListener("submit", (event) => {
   event.preventDefault()
-  budgetManager.setBudget(inputBudget.value)
-  inputBudget.value = ""
-  clearBudgetInput()
-  displayBudget()
-  displayBalance()
-  displayExpenses()
+  const date = new Date()
+  console.log(date.getDate())
+  console.log(date.getMonth() + 1)
+  console.log(date.toLocaleString("default", { month: "short" }))
+  console.log(date.getFullYear())
+  if (inputBudget.value !== "") {
+    budgetManager.setBudget(inputBudget.value)
+    budgetManager.setBalance()
+    inputBudget.value = ""
+    clearBudgetInput()
+    displayBudget()
+    displayBalance()
+    displayExpenses()
+  }
 })
 
 transactionForm.addEventListener("submit", (event) => {
   event.preventDefault()
-  const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
-
-  clearTransactionInput()
-  transactionManager.addTransaction(transaction)
-  // transactionManager.renderTransactions()
-  budgetManager.calculateExpenses(transactionManager.transactionArray)
-  budgetManager.setBalance()
-  displayBalance()
-  displayExpenses()
-
+  if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "") {
+    const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
+  
+    clearTransactionInput()
+    transactionManager.addTransaction(transaction)
+    budgetManager.calculateExpenses(transactionManager.transactionArray)
+    budgetManager.setBalance()
+    displayBalance()
+    displayExpenses()
+    transactionManager.renderTransactions()
+  }
 })
 // console.log(budgetManager) 
