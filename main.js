@@ -1,4 +1,5 @@
 import './style.css'
+import { format } from "date-fns"
 
 const totalBudget = document.querySelector(".total-budget");
 const totalExpenses = document.querySelector(".total-expenses");
@@ -21,7 +22,6 @@ class Transaction {
     this.purpose = purpose
     this.id = self.crypto.randomUUID()
     this.date = new Date()
-    // this.time = 
     // kako pisat id?
   }
 }
@@ -43,7 +43,7 @@ class TransactionManager {
     // jos doradit ovu funkciju
     transactionList.innerHTML = ""
     this.transactionArray.forEach(transaction => {
-      const html = `<li>${transaction.purpose} ${transaction.cost} ${transaction.date.getDate()} ${transaction.date.toLocaleString("default", { month: "short" })} ${transaction.date.getFullYear()}<button>Remove</button></li>`;
+      const html = `<li>${transaction.purpose} ${transaction.cost} ${format(transaction.date, "dd/MMMM/yyyy")} <button>Remove</button></li>`;
       transactionList.insertAdjacentHTML("afterbegin", html)
     })
 
@@ -84,7 +84,7 @@ class Income{
   constructor(amount) {
     this.amount = amount
     this.id = self.crypto.randomUUID()
-    // this.date = 
+    this.date = new Date()
   }
 }
 
@@ -103,7 +103,7 @@ class IncomeManager {
 
   renderIncomes(incomeArray) {
     incomeArray.forEach(income => {
-      const html = `<li>${income.amount} ${income.date.getDate()} ${income.date.toLocaleString("default", { month: "short" })} ${income.date.getFullYear()}<button>Remove</button></li>`;
+      const html = `<li>${income.amount} ${format(income.date, "dd/MM/yyyy")}  ${income.date.getDate()} ${income.date.toLocaleString("default", { month: "short" })} ${income.date.getFullYear()}<button>Remove</button></li>`;
       incomeList.insertAdjacentHTML("afterbegin", html)
     })
   }
@@ -156,6 +156,8 @@ budgetForm.addEventListener("submit", (event) => {
 
 transactionForm.addEventListener("submit", (event) => {
   event.preventDefault()
+  console.log(format(new Date, "dd/MM/yyyy"))
+  console.log(format(new Date, "HH:mm"))
   if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "") {
     const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
   
