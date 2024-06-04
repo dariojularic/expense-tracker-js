@@ -9,11 +9,13 @@ const inputTransactionCost = document.querySelector(".input-transaction-cost");
 const transactionList = document.querySelector(".transaction-list");
 const budgetForm = document.querySelector(".edit-budget");
 const transactionForm = document.querySelector(".add-transaction");
+const incomeList = document.querySelector(".income-list");
 
 // kako ne ponavljat css code?
 // date fns
+// income povecava budget
 
-class Transaction{
+class Transaction {
   constructor(cost, purpose) {
     this.cost = cost
     this.purpose = purpose
@@ -24,7 +26,7 @@ class Transaction{
   }
 }
 
-class TransactionManager{
+class TransactionManager {
   constructor() {
     this.transactionArray = []
   }
@@ -52,7 +54,7 @@ class TransactionManager{
 // expenses novi class  expenses manager
 // budget manager total budget, total expenses, total balance
 
-class BudgetManager{
+class BudgetManager {
   constructor() {
     this.budget = 0
     this.expenses = 0
@@ -74,8 +76,36 @@ class BudgetManager{
   }
   
   setBalance() {
-    // pretvorit u broj
     this.balance = parseInt(this.budget - this.expenses)
+  }
+}
+
+class Income{
+  constructor(amount) {
+    this.amount = amount
+    this.id = self.crypto.randomUUID()
+    // this.date = 
+  }
+}
+
+class IncomeManager {
+  constructor() {
+    this.incomeArray = []
+  }
+
+  addIncome(income) {
+    this.incomeArray.push(income)
+  }
+
+  removeIncome(incomeId) {
+    this.incomeArray.filter(income => income.id !== incomeId)
+  }
+
+  renderIncomes(incomeArray) {
+    incomeArray.forEach(income => {
+      const html = `<li>${income.amount} ${income.date.getDate()} ${income.date.toLocaleString("default", { month: "short" })} ${income.date.getFullYear()}<button>Remove</button></li>`;
+      incomeList.insertAdjacentHTML("afterbegin", html)
+    })
   }
 }
 
@@ -105,11 +135,6 @@ const budgetManager = new BudgetManager
 displayBudget()
 displayBalance()
 displayExpenses()
-
-
-// inputBudget.addEventListener("input", (event) => {  
-//   budgetManager.setBudget(event.target.value)
-// })
 
 budgetForm.addEventListener("submit", (event) => {
   event.preventDefault()
@@ -143,4 +168,3 @@ transactionForm.addEventListener("submit", (event) => {
     transactionManager.renderTransactions()
   }
 })
-// console.log(budgetManager) 
