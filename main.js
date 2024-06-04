@@ -10,6 +10,9 @@ const transactionList = document.querySelector(".transaction-list");
 const budgetForm = document.querySelector(".edit-budget");
 const transactionForm = document.querySelector(".add-transaction");
 
+// kako ne ponavljat css code?
+// date fns
+
 class Transaction{
   constructor(cost, purpose) {
     this.cost = cost

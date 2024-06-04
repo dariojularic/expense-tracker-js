@@ -12,10 +12,16 @@
     <div class="container">
       <h1>Expense Tracker</h1>
       <div class="grid">
+        <form action="" class="add-income">
+          <h3>Add income</h3>
+          <label for="add-income">Your income</label>
+          <input type="number" name="add-income" class="input-income" id="add-income" placeholder="1000$">
+          <input type="submit" value="Add Income" class="income-btn">
+        </form>
         <form action="" class="edit-budget">
           <h3>Edit Budget</h3>
           <label for="edit-budget">Your budget</label>
-          <input type="number" name="edit-budget" class="input-budget" id="edit-budget" placeholder="1000$">
+          <input type="number" name="edit-budget" class="input-budget" id="edit-budget" placeholder="5000$">
           <input type="submit" value="Set Budget" class="set-budget">
         </form>
         <form action="" class="add-transaction">
@@ -51,6 +57,13 @@
           <div class="balance-show">
             <p class="total-balance"></p>
             <p>Balance</p>
+          </div>
+        </div>
+        <div class="income">
+          <i class="fa-solid fa-sack-dollar"></i>
+          <div class="income-show">
+            <p class="total-balance"></p>
+            <p>Income</p>
           </div>
         </div>
       </div>
