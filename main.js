@@ -17,6 +17,7 @@ const transactionList = document.querySelector(".transaction-list");
 // kako ne ponavljat css code?
 // date fns
 // income povecava budget
+// jel render funkcije primaju argument array ili po defaultu koriste this.array??
 
 class Transaction {
   constructor(cost, purpose) {
@@ -45,7 +46,7 @@ class TransactionManager {
     // jos doradit ovu funkciju
     transactionList.innerHTML = ""
     this.transactionArray.forEach(transaction => {
-      const html = `<li>${transaction.purpose} ${transaction.cost} ${format(transaction.date, "HH:mm dd/MMMM/yyyy")} <button>Remove</button></li>`;
+      const html = `<li class="transaction-list-item">${transaction.purpose} ${transaction.cost} ${format(transaction.date, "HH:mm dd/MMMM/yyyy")} <button>Remove</button></li>`;
       transactionList.insertAdjacentHTML("afterbegin", html)
     })
 
@@ -83,7 +84,7 @@ class BudgetManager {
 
   // koji manager povecava budget kad dodam income??
   increaseBudget(income) {
-    this.budget += parseInt(income)
+    this.budget = parseInt(this.budget) + parseInt(income)
   }
 }
 
@@ -110,7 +111,7 @@ class IncomeManager {
 
   renderIncomes(incomeArray) {
     incomeArray.forEach(income => {
-      const html = `<li>${income.amount} ${format(income.date, "dd/MM/yyyy")} <button>Remove</button></li>`;
+      const html = `<li class="income-list-item">${income.amount} ${format(income.date, "dd/MM/yyyy")} <button>Remove</button></li>`;
       incomeList.insertAdjacentHTML("afterbegin", html)
     })
   }
@@ -166,7 +167,6 @@ transactionForm.addEventListener("submit", (event) => {
   event.preventDefault()
   if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "") {
     const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
-  
     clearTransactionInput()
     transactionManager.addTransaction(transaction)
     budgetManager.calculateExpenses(transactionManager.transactionArray)
@@ -178,13 +178,12 @@ transactionForm.addEventListener("submit", (event) => {
 })
 
 incomeForm.addEventListener("submit", (event) => {
-  console.log("gaga")
   event.preventDefault()
   if (inputIncome.value !== "") {
-    console.log("gaga")
     const income = new Income(inputIncome.value)
     budgetManager.increaseBudget(inputIncome.value)
     displayBudget()
     clearIncomeInput()
+    incomeManager.renderIncomes(incomeManager.incomeArray)
   }
 })

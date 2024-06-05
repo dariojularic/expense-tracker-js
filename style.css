@@ -184,3 +184,30 @@ i {
   padding-left: 16px;
 }
 
+.lists {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+
+ol {
+  padding: 0;
+  width: 49%;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 16px;
+  height: 32px;
+  padding-left: 8px;
+} 
+
+.transaction-list-item {
+  border: 1px solid red;
+}
+
+.income-list-item {
+  border: 1px solid green;
+}
