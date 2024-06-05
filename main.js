@@ -18,7 +18,7 @@ const transactionList = document.querySelector(".transaction-list");
 // date fns
 // income povecava budget
 // jel render funkcije primaju argument array ili po defaultu koriste this.array??
-
+// ubacit Toast, zavrsit average income, uredit <li>, brisanje transakcija i incoma
 class Transaction {
   constructor(cost, purpose) {
     this.cost = cost
@@ -110,6 +110,7 @@ class IncomeManager {
   }
 
   renderIncomes(incomeArray) {
+    incomeList.innerHTML = ""
     incomeArray.forEach(income => {
       const html = `<li class="income-list-item">${income.amount} ${format(income.date, "dd/MM/yyyy")} <button>Remove</button></li>`;
       incomeList.insertAdjacentHTML("afterbegin", html)
@@ -181,6 +182,7 @@ incomeForm.addEventListener("submit", (event) => {
   event.preventDefault()
   if (inputIncome.value !== "") {
     const income = new Income(inputIncome.value)
+    incomeManager.addIncome(income)
     budgetManager.increaseBudget(inputIncome.value)
     displayBudget()
     clearIncomeInput()

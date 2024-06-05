@@ -88,7 +88,7 @@ body {
 }
 
 .set-budget {
-  padding: 12px 24px;
+  padding: 8px 16px;
   background-color: rgb(75, 112, 222);
   border-radius: 16px;
   color: white;
@@ -99,7 +99,7 @@ body {
 }
 
 .income-btn {
-  padding: 12px 24px;
+  padding: 8px 16px;
   background-color: rgb(75, 112, 222);
   border-radius: 16px;
   color: white;
@@ -107,6 +107,10 @@ body {
   font-size: 20px;
   border: none;
   cursor: pointer;
+}
+
+.income-btn:hover {
+  background-color: rgb(54, 97, 229);
 }
 
 .set-budget:hover {
@@ -149,8 +153,8 @@ body {
 
 .submit-btn {
   width: 50%;
-  align-self: center;
-  padding: 12px 24px;
+  /* align-self: center; */
+  padding: 8px 16px;
   background-color: rgb(75, 112, 222);
   border-radius: 16px;
   color: white;
