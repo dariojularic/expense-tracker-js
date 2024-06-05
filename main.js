@@ -189,3 +189,5 @@ incomeForm.addEventListener("submit", (event) => {
     incomeManager.renderIncomes(incomeManager.incomeArray)
   }
 })
+
+// doradit funkcije
