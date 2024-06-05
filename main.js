@@ -7,10 +7,12 @@ const totalBalance = document.querySelector(".total-balance");
 const inputBudget = document.querySelector(".input-budget");
 const inputTransactionPurpose = document.querySelector(".input-transaction-purpose");
 const inputTransactionCost = document.querySelector(".input-transaction-cost");
-const transactionList = document.querySelector(".transaction-list");
+const inputIncome = document.querySelector(".input-income");
 const budgetForm = document.querySelector(".edit-budget");
 const transactionForm = document.querySelector(".add-transaction");
+const incomeForm = document.querySelector(".add-income")
 const incomeList = document.querySelector(".income-list");
+const transactionList = document.querySelector(".transaction-list");
 
 // kako ne ponavljat css code?
 // date fns
@@ -78,6 +80,11 @@ class BudgetManager {
   setBalance() {
     this.balance = parseInt(this.budget - this.expenses)
   }
+
+  // koji manager povecava budget kad dodam income??
+  increaseBudget(income) {
+    this.budget += parseInt(income)
+  }
 }
 
 class Income{
@@ -130,8 +137,13 @@ function clearTransactionInput() {
   inputTransactionPurpose.value = ""
 }
 
+function clearIncomeInput() {
+  inputIncome.value = ""
+}
+
 const transactionManager = new TransactionManager
 const budgetManager = new BudgetManager
+const incomeManager = new IncomeManager
 displayBudget()
 displayBalance()
 displayExpenses()
@@ -139,10 +151,6 @@ displayExpenses()
 budgetForm.addEventListener("submit", (event) => {
   event.preventDefault()
   const date = new Date()
-  console.log(date.getDate())
-  console.log(date.getMonth() + 1)
-  console.log(date.toLocaleString("default", { month: "short" }))
-  console.log(date.getFullYear())
   if (inputBudget.value !== "") {
     budgetManager.setBudget(inputBudget.value)
     budgetManager.setBalance()
@@ -156,8 +164,6 @@ budgetForm.addEventListener("submit", (event) => {
 
 transactionForm.addEventListener("submit", (event) => {
   event.preventDefault()
-  console.log(format(new Date, "dd/MM/yyyy"))
-  console.log(format(new Date, "HH:mm"))
   if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "") {
     const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
   
@@ -168,5 +174,17 @@ transactionForm.addEventListener("submit", (event) => {
     displayBalance()
     displayExpenses()
     transactionManager.renderTransactions()
+  }
+})
+
+incomeForm.addEventListener("submit", (event) => {
+  console.log("gaga")
+  event.preventDefault()
+  if (inputIncome.value !== "") {
+    console.log("gaga")
+    const income = new Income(inputIncome.value)
+    budgetManager.increaseBudget(inputIncome.value)
+    displayBudget()
+    clearIncomeInput()
   }
 })
