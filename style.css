@@ -203,10 +203,12 @@ ol {
 li {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: white;
   border-radius: 16px;
   height: 32px;
-  padding-left: 8px;
+  padding: 0px 8px;
+  margin: 8px 0px;
 } 
 
 .transaction-list-item {
@@ -215,4 +217,9 @@ li {
 
 .income-list-item {
   border: 1px solid green;
+}
+
+.delete-btn {
+  font-size: 16px;
+  color: red;
 }

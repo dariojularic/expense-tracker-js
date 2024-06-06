@@ -17,6 +17,8 @@ const transactionForm = document.querySelector(".add-transaction");
 const incomeForm = document.querySelector(".add-income")
 const incomeList = document.querySelector(".income-list");
 const transactionList = document.querySelector(".transaction-list");
+const averageIncomeParagraph = document.querySelector(".average-income");
+// const listItem = document.querySelector(".transaction-list-item"); 
 
 // kako ne ponavljat css code?
 // date fns
@@ -43,15 +45,15 @@ class TransactionManager {
   }
 
   removeTransaction(transactionId) {
-    this.transactionArray.filter(transaction => transaction.id !== transactionId)
+    this.transactionArray = this.transactionArray.filter(transaction => transaction.id !== transactionId)
   }
 
   renderTransactions() {
     // jos doradit ovu funkciju
     transactionList.innerHTML = ""
     this.transactionArray.forEach(transaction => {
-      const html = `<li class="transaction-list-item">${transaction.purpose} ${transaction.cost} ${format(transaction.date, "HH:mm dd/MMMM/yyyy")} <button>Remove</button></li>`;
-      transactionList.insertAdjacentHTML("afterbegin", html)
+      const html = `<li class="transaction-list-item" data-id="${transaction.id}"><span>${transaction.purpose}</span> <span>${transaction.cost}$</span> <span>${format(transaction.date, "HH:mm")}</span> <span>${format(transaction.date, "dd/MMMM/yyyy")}</span> <i class="fa-solid fa-circle-xmark delete-btn"></i></li>`;
+      transactionList.insertAdjacentHTML("beforeend", html)
     })
 
   }
@@ -110,13 +112,13 @@ class IncomeManager {
   }
 
   removeIncome(incomeId) {
-    this.incomeArray.filter(income => income.id !== incomeId)
+    this.incomeArray = this.incomeArray.filter(income => income.id !== incomeId)
   }
 
   renderIncomes(incomeArray) {
     incomeList.innerHTML = ""
     incomeArray.forEach(income => {
-      const html = `<li class="income-list-item">${income.amount} ${format(income.date, "dd/MM/yyyy")} <button>Remove</button></li>`;
+      const html = `<li class="income-list-item" data-id="${income.id}"><span>${income.amount}$</span> <span>${format(income.date, "HH:mm")}</span> <span>${format(income.date, "dd/MM/yyyy")}</span> <i class="fa-solid fa-circle-xmark delete-btn"></i></li>`;
       incomeList.insertAdjacentHTML("afterbegin", html)
     })
   }
@@ -134,6 +136,10 @@ function displayBalance() {
   totalBalance.textContent = `$${budgetManager.balance}`
 }
 
+function displayAverageIncome() {
+  averageIncomeParagraph.textContent = `${averageIncome(incomeManager.incomeArray)}`
+}
+
 function clearBudgetInput() {
   inputBudget.value = ""
 }
@@ -145,6 +151,15 @@ function clearTransactionInput() {
 
 function clearIncomeInput() {
   inputIncome.value = ""
+}
+
+function averageIncome(array) {
+  let total = 0;
+  for(let i = 0; i < array.length; i++) {
+    total += parseInt(array[i].amount)
+  }
+  console.log(total)
+  return total / array.length
 }
 
 const transactionManager = new TransactionManager
@@ -180,11 +195,7 @@ budgetForm.addEventListener("submit", (event) => {
 
 transactionForm.addEventListener("submit", (event) => {
   event.preventDefault()
-  console.log(inputTransactionCost.value < budgetManager.budget)
-  console.log(typeof(budgetManager.budget))
-  console.log(typeof(inputTransactionCost.value))
   if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "" && parseInt(inputTransactionCost.value) <= budgetManager.budget) {
-    console.log(budgetManager.budget)
     const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
     clearTransactionInput()
     transactionManager.addTransaction(transaction)
@@ -241,6 +252,7 @@ incomeForm.addEventListener("submit", (event) => {
     displayBudget()
     clearIncomeInput()
     incomeManager.renderIncomes(incomeManager.incomeArray)
+    displayAverageIncome()
   } else {
     Toastify({
       text: "Type in Income",
@@ -251,6 +263,22 @@ incomeForm.addEventListener("submit", (event) => {
         y: 300
       }
     }).showToast();
+  }
+})
+
+transactionList.addEventListener("click", (event) => {
+  if (event.target.classList.contains("delete-btn")) {
+    const itemId = event.target.closest(".transaction-list-item").getAttribute("data-id");
+    transactionManager.removeTransaction(itemId)
+    transactionManager.renderTransactions(transactionManager.transactionArray)
+  }
+})
+
+incomeList.addEventListener("click", (event) => {
+  if (event.target.classList.contains("delete-btn")) {
+    const incomeId = event.target.closest(".income-list-item").getAttribute("data-id");
+    incomeManager.removeIncome(incomeId)
+    incomeManager.renderIncomes(incomeManager.incomeArray)
   }
 })
 
