@@ -18,7 +18,6 @@ const incomeForm = document.querySelector(".add-income")
 const incomeList = document.querySelector(".income-list");
 const transactionList = document.querySelector(".transaction-list");
 const averageIncomeParagraph = document.querySelector(".average-income");
-// const listItem = document.querySelector(".transaction-list-item"); 
 
 // kako ne ponavljat css code?
 // date fns
@@ -137,7 +136,7 @@ function displayBalance() {
 }
 
 function displayAverageIncome() {
-  averageIncomeParagraph.textContent = `${averageIncome(incomeManager.incomeArray)}`
+  averageIncomeParagraph.textContent = `$${averageIncome(incomeManager.incomeArray)}`
 }
 
 function clearBudgetInput() {
@@ -153,13 +152,24 @@ function clearIncomeInput() {
   inputIncome.value = ""
 }
 
+function toastifyAlert() {
+  Toastify({
+    text: "Something is wrong...",
+    duration: 3000,
+    position: "center",
+    offset: {
+      x: 0,
+      y: 300
+    }
+  }).showToast();
+}
+
 function averageIncome(array) {
   let total = 0;
   for(let i = 0; i < array.length; i++) {
     total += parseInt(array[i].amount)
   }
-  console.log(total)
-  return total / array.length
+  return Math.floor(total / array.length)
 }
 
 const transactionManager = new TransactionManager
@@ -181,15 +191,7 @@ budgetForm.addEventListener("submit", (event) => {
     displayBalance()
     displayExpenses()
   } else {
-    Toastify({
-      text: "Type in Budget",
-      duration: 3000,
-      position: "center",
-      offset: {
-        x: 0,
-        y: 300
-      }
-    }).showToast();
+   toastifyAlert()
   }
 })
 
@@ -205,41 +207,17 @@ transactionForm.addEventListener("submit", (event) => {
     displayExpenses()
     transactionManager.renderTransactions()
   }
-  
+  // ovaj dio jos treba doradit
   if (inputTransactionCost.value === "") {
-    Toastify({
-      text: "Type in Transaction Cost",
-      duration: 3000,
-      position: "center",
-      offset: {
-        x: 0,
-        y: 300
-      }
-    }).showToast();
+    toastifyAlert()
   }
 
   if (inputTransactionPurpose.value === "") {
-    Toastify({
-      text: "Type in Transaction Purpose",
-      duration: 3000,
-      position: "center",
-      offset: {
-        x: 0,
-        y: 300
-      }
-    }).showToast();
+    toastifyAlert()
   }
 
   if (parseInt(inputTransactionCost.value) > budgetManager.budget) {
-    Toastify({
-      text: "Not enough money for the transactiont",
-      duration: 3000,
-      position: "center",
-      offset: {
-        x: 0,
-        y: 300
-      }
-    }).showToast();
+    toastifyAlert()
   }
 })
 
