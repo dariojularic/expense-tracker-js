@@ -16,7 +16,7 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  width: 70%;
+  width: 80%;
   height: 400px;
   gap: 16px;
 }
@@ -190,7 +190,7 @@ i {
 }
 
 .lists {
-  width: 70%;
+  width: 80%;
   display: flex;
   justify-content: space-between;
 }

@@ -19,18 +19,19 @@ const incomeList = document.querySelector(".income-list");
 const transactionList = document.querySelector(".transaction-list");
 const averageIncomeParagraph = document.querySelector(".average-income");
 
-// kako ne ponavljat css code?
-// date fns
-// income povecava budget
+// kako pisat id?
+// kako ne ponavljat css code? css varijable
 // jel render funkcije primaju argument array ili po defaultu koriste this.array??
-// ubacit Toast, zavrsit average income, uredit <li>, brisanje transakcija i incoma
+// cesto koristim parseInt. jel to ok?
+// koji manager povecava budget kad dodam income??
+// sta ako dodam budget poslije income?
+
 class Transaction {
   constructor(cost, purpose) {
     this.cost = cost
     this.purpose = purpose
     this.id = self.crypto.randomUUID()
     this.date = new Date()
-    // kako pisat id?
   }
 }
 
@@ -48,7 +49,6 @@ class TransactionManager {
   }
 
   renderTransactions() {
-    // jos doradit ovu funkciju
     transactionList.innerHTML = ""
     this.transactionArray.forEach(transaction => {
       const html = `<li class="transaction-list-item" data-id="${transaction.id}"><span>${transaction.purpose}</span> <span>${transaction.cost}$</span> <span>${format(transaction.date, "HH:mm")}</span> <span>${format(transaction.date, "dd/MMMM/yyyy")}</span> <i class="fa-solid fa-circle-xmark delete-btn"></i></li>`;
@@ -58,15 +58,10 @@ class TransactionManager {
   }
 }
 
-// budget state, balance, expenses array
-// expenses novi class  expenses manager
-// budget manager total budget, total expenses, total balance
-
 class BudgetManager {
   constructor() {
     this.budget = 0
     this.expenses = 0
-    // sta dodijelit na totalBalance
     this.balance = 0
   }
 
@@ -74,10 +69,8 @@ class BudgetManager {
     this.budget = budget
   }
 
-  // pregledat ovu funkciju
   calculateExpenses(transactionsArray) {
     this.expenses = 0
-    // pretvorit u broj
     transactionsArray.forEach(transaction => {
       this.expenses += parseInt(transaction.cost)
     })
@@ -87,7 +80,6 @@ class BudgetManager {
     this.balance = parseInt(this.budget - this.expenses)
   }
 
-  // koji manager povecava budget kad dodam income??
   increaseBudget(income) {
     this.budget = parseInt(this.budget) + parseInt(income)
   }
@@ -197,16 +189,6 @@ budgetForm.addEventListener("submit", (event) => {
 
 transactionForm.addEventListener("submit", (event) => {
   event.preventDefault()
-  if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "" && parseInt(inputTransactionCost.value) <= budgetManager.budget) {
-    const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
-    clearTransactionInput()
-    transactionManager.addTransaction(transaction)
-    budgetManager.calculateExpenses(transactionManager.transactionArray)
-    budgetManager.setBalance()
-    displayBalance()
-    displayExpenses()
-    transactionManager.renderTransactions()
-  }
   // ovaj dio jos treba doradit
   if (inputTransactionCost.value === "") {
     toastifyAlert()
@@ -218,6 +200,17 @@ transactionForm.addEventListener("submit", (event) => {
 
   if (parseInt(inputTransactionCost.value) > budgetManager.budget) {
     toastifyAlert()
+  }
+
+  if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "" && parseInt(inputTransactionCost.value) <= budgetManager.budget) {
+    const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
+    clearTransactionInput()
+    transactionManager.addTransaction(transaction)
+    budgetManager.calculateExpenses(transactionManager.transactionArray)
+    budgetManager.setBalance()
+    displayBalance()
+    displayExpenses()
+    transactionManager.renderTransactions()
   }
 })
 
@@ -232,15 +225,7 @@ incomeForm.addEventListener("submit", (event) => {
     incomeManager.renderIncomes(incomeManager.incomeArray)
     displayAverageIncome()
   } else {
-    Toastify({
-      text: "Type in Income",
-      duration: 3000,
-      position: "center",
-      offset: {
-        x: 0,
-        y: 300
-      }
-    }).showToast();
+    toastifyAlert()
   }
 })
 
@@ -259,5 +244,3 @@ incomeList.addEventListener("click", (event) => {
     incomeManager.renderIncomes(incomeManager.incomeArray)
   }
 })
-
-// doradit funkcije
