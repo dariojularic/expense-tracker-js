@@ -1,5 +1,9 @@
 import './style.css'
 import { format } from "date-fns"
+import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
+
+
 
 const totalBudget = document.querySelector(".total-budget");
 const totalExpenses = document.querySelector(".total-expenses");
@@ -161,12 +165,26 @@ budgetForm.addEventListener("submit", (event) => {
     displayBudget()
     displayBalance()
     displayExpenses()
+  } else {
+    Toastify({
+      text: "Type in Budget",
+      duration: 3000,
+      position: "center",
+      offset: {
+        x: 0,
+        y: 300
+      }
+    }).showToast();
   }
 })
 
 transactionForm.addEventListener("submit", (event) => {
   event.preventDefault()
-  if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "") {
+  console.log(inputTransactionCost.value < budgetManager.budget)
+  console.log(typeof(budgetManager.budget))
+  console.log(typeof(inputTransactionCost.value))
+  if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "" && parseInt(inputTransactionCost.value) <= budgetManager.budget) {
+    console.log(budgetManager.budget)
     const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
     clearTransactionInput()
     transactionManager.addTransaction(transaction)
@@ -175,6 +193,42 @@ transactionForm.addEventListener("submit", (event) => {
     displayBalance()
     displayExpenses()
     transactionManager.renderTransactions()
+  }
+  
+  if (inputTransactionCost.value === "") {
+    Toastify({
+      text: "Type in Transaction Cost",
+      duration: 3000,
+      position: "center",
+      offset: {
+        x: 0,
+        y: 300
+      }
+    }).showToast();
+  }
+
+  if (inputTransactionPurpose.value === "") {
+    Toastify({
+      text: "Type in Transaction Purpose",
+      duration: 3000,
+      position: "center",
+      offset: {
+        x: 0,
+        y: 300
+      }
+    }).showToast();
+  }
+
+  if (parseInt(inputTransactionCost.value) > budgetManager.budget) {
+    Toastify({
+      text: "Not enough money for the transactiont",
+      duration: 3000,
+      position: "center",
+      offset: {
+        x: 0,
+        y: 300
+      }
+    }).showToast();
   }
 })
 
@@ -187,6 +241,16 @@ incomeForm.addEventListener("submit", (event) => {
     displayBudget()
     clearIncomeInput()
     incomeManager.renderIncomes(incomeManager.incomeArray)
+  } else {
+    Toastify({
+      text: "Type in Income",
+      duration: 3000,
+      position: "center",
+      offset: {
+        x: 0,
+        y: 300
+      }
+    }).showToast();
   }
 })
 
