@@ -180,8 +180,6 @@ transactionForm.addEventListener("submit", (event) => {
     budgetManager.setBalance()
     updateTextContent(totalBalance, budgetManager.balance)
     updateTextContent(totalExpenses, budgetManager.expenses)
-    // displayBalance()
-    // displayExpenses()
     transactionManager.renderTransactions()
   }
 })
@@ -191,9 +189,7 @@ incomeForm.addEventListener("submit", (event) => {
   if (inputIncome.value !== "") {
     const income = new Income(inputIncome.value)
     incomeManager.addIncome(income)
-    // budgetManager.increaseBudget(inputIncome.value)
     budgetManager.increaseBalance(income.amount)
-    // displayBudget()
     updateTextContent(totalBalance, budgetManager.balance)
     clearIncomeInput()
     incomeManager.renderIncomes(incomeManager.incomeArray)
