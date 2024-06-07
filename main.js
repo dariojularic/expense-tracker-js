@@ -113,10 +113,6 @@ function displayAverageIncome() {
   averageIncomeParagraph.textContent = `$${averageIncome(incomeManager.incomeArray)}`
 }
 
-function clearBudgetInput() {
-  inputBudget.value = ""
-}
-
 function clearTransactionInput() {
   inputTransactionCost.value = ""
   inputTransactionPurpose.value = ""
