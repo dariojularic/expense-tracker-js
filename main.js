@@ -145,26 +145,8 @@ function averageIncome(array) {
 const transactionManager = new TransactionManager
 const budgetManager = new BudgetManager
 const incomeManager = new IncomeManager
-// displayBudget()
 updateTextContent(totalBalance, budgetManager.balance)
 updateTextContent(totalExpenses, budgetManager.expenses)
-// displayBalance()
-// displayExpenses()
-
-// budgetForm.addEventListener("submit", (event) => {
-//   event.preventDefault()
-//   if (inputBudget.value !== "") {
-//     budgetManager.setBudget(inputBudget.value)
-//     budgetManager.setBalance()
-//     inputBudget.value = ""
-//     clearBudgetInput()
-//     displayBudget()
-//     displayBalance()
-//     displayExpenses()
-//   } else {
-//    toastifyAlert()
-//   }
-// })
 
 transactionForm.addEventListener("input", (event) => {
   event.preventDefault()
