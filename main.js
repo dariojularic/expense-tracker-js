@@ -5,10 +5,8 @@ import "toastify-js/src/toastify.css"
 
 // izbacit budget, display funkcije, reduce umjesto expenses= 0, disable button umjesto toastify, get funkcije umjesto state
 
-// const totalBudget = document.querySelector(".total-budget");
 const totalExpenses = document.querySelector(".total-expenses");
 const totalBalance = document.querySelector(".total-balance");
-// const inputBudget = document.querySelector(".input-budget");
 const inputTransactionPurpose = document.querySelector(".input-transaction-purpose");
 const inputTransactionCost = document.querySelector(".input-transaction-cost");
 const inputIncome = document.querySelector(".input-income");
@@ -55,19 +53,11 @@ class TransactionManager {
 
 class BudgetManager {
   constructor() {
-    // this.budget = 0
     this.expenses = 0
     this.balance = 0
   }
 
-  // setBudget(budget) {
-  //   this.budget = budget
-  // }
-
-  // reduce metoda
-  // this.expenses
   calculateExpenses(transactionsArray) {
-    // this.expenses = 0
     let newExpenses = 0
     transactionsArray.forEach(transaction => {
       newExpenses += parseInt(transaction.cost)
@@ -117,18 +107,6 @@ class IncomeManager {
 // ovo umjesto display funkcija
 function updateTextContent(element, value) {
   element.textContent = "$" + value
-}
-
-function displayBudget() {
-  totalBudget.textContent = `$${budgetManager.budget}`
-}
-
-function displayExpenses() {
-  totalExpenses.textContent = `$${budgetManager.expenses}`
-}
-
-function displayBalance() {
-  totalBalance.textContent = `$${budgetManager.balance}`
 }
 
 function displayAverageIncome() {
