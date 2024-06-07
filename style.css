@@ -58,6 +58,7 @@ body {
   border-radius: 24px;
   display: flex;
   align-items: center;
+  overflow: hidden;
   padding: 16px;
 }
 
@@ -66,6 +67,7 @@ body {
   background-color: white;
   border-radius: 24px;
   display: flex;
+  overflow: hidden;
   align-items: center;
   padding: 16px;
 }
@@ -77,6 +79,7 @@ body {
   display: flex;
   align-items: center;
   padding: 16px;
+  overflow: hidden;
 }
 
 .balance {
@@ -85,6 +88,7 @@ body {
   border-radius: 24px;
   display: flex;
   align-items: center;
+  overflow: hidden;
   padding: 16px;
 }
 
@@ -209,6 +213,7 @@ li {
   height: 32px;
   padding: 0px 8px;
   margin: 8px 0px;
+  overflow: hidden;
 } 
 
 .transaction-list-item {
