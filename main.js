@@ -18,6 +18,8 @@ const incomeForm = document.querySelector(".add-income")
 const incomeList = document.querySelector(".income-list");
 const transactionList = document.querySelector(".transaction-list");
 const averageIncomeParagraph = document.querySelector(".average-income");
+const addTransactionBtn = document.querySelector(".submit-btn");
+// addTransactionBtn.disabled = true
 
 class Transaction {
   constructor(cost, purpose) {
@@ -61,13 +63,16 @@ class BudgetManager {
   // setBudget(budget) {
   //   this.budget = budget
   // }
+
   // reduce metoda
   // this.expenses
   calculateExpenses(transactionsArray) {
-    this.expenses = 0
+    // this.expenses = 0
+    let newExpenses = 0
     transactionsArray.forEach(transaction => {
-      this.expenses += parseInt(transaction.cost)
+      newExpenses += parseInt(transaction.cost)
     })
+    this.expenses = newExpenses;
   }
   
   setBalance() {
@@ -75,7 +80,7 @@ class BudgetManager {
   }
 
   increaseBalance(income) {
-    this.balance += parseInt(this.budget) + parseInt(income)
+    this.balance += parseInt(income)
   }
 }
 
@@ -111,7 +116,7 @@ class IncomeManager {
 
 // ovo umjesto display funkcija
 function updateTextContent(element, value) {
-  element.textContent = value
+  element.textContent = "$" + value
 }
 
 function displayBudget() {
@@ -166,22 +171,31 @@ function averageIncome(array) {
 const transactionManager = new TransactionManager
 const budgetManager = new BudgetManager
 const incomeManager = new IncomeManager
-displayBudget()
-displayBalance()
-displayExpenses()
+// displayBudget()
+updateTextContent(totalBalance, budgetManager.balance)
+updateTextContent(totalExpenses, budgetManager.expenses)
+// displayBalance()
+// displayExpenses()
 
-budgetForm.addEventListener("submit", (event) => {
+// budgetForm.addEventListener("submit", (event) => {
+//   event.preventDefault()
+//   if (inputBudget.value !== "") {
+//     budgetManager.setBudget(inputBudget.value)
+//     budgetManager.setBalance()
+//     inputBudget.value = ""
+//     clearBudgetInput()
+//     displayBudget()
+//     displayBalance()
+//     displayExpenses()
+//   } else {
+//    toastifyAlert()
+//   }
+// })
+
+transactionForm.addEventListener("input", (event) => {
   event.preventDefault()
-  if (inputBudget.value !== "") {
-    budgetManager.setBudget(inputBudget.value)
-    budgetManager.setBalance()
-    inputBudget.value = ""
-    clearBudgetInput()
-    displayBudget()
-    displayBalance()
-    displayExpenses()
-  } else {
-   toastifyAlert()
+  if (inputTransactionCost && inputTransactionPurpose) {
+    // addTransactionBtn.removeAttribute("disabled")
   }
 })
 
@@ -189,25 +203,29 @@ transactionForm.addEventListener("submit", (event) => {
   event.preventDefault()
   // ovaj dio jos treba doradit
   if (!inputTransactionCost.value) {
+    console.log(addTransactionBtn)
     return toastifyAlert()
   }
-
+  
   if (inputTransactionPurpose.value === "") {
     toastifyAlert()
   }
-
+  
   if (parseInt(inputTransactionCost.value) > budgetManager.budget) {
     toastifyAlert()
   }
-
-  if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "" && parseInt(inputTransactionCost.value) <= budgetManager.budget) {
+  
+  if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "" && parseInt(inputTransactionCost.value) <= budgetManager.balance) {
+    console.log(addTransactionBtn)
     const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
     clearTransactionInput()
     transactionManager.addTransaction(transaction)
     budgetManager.calculateExpenses(transactionManager.transactionArray)
     budgetManager.setBalance()
-    displayBalance()
-    displayExpenses()
+    updateTextContent(totalBalance, budgetManager.balance)
+    updateTextContent(totalExpenses, budgetManager.expenses)
+    // displayBalance()
+    // displayExpenses()
     transactionManager.renderTransactions()
   }
 })
@@ -217,8 +235,10 @@ incomeForm.addEventListener("submit", (event) => {
   if (inputIncome.value !== "") {
     const income = new Income(inputIncome.value)
     incomeManager.addIncome(income)
-    budgetManager.increaseBudget(inputIncome.value)
-    displayBudget()
+    // budgetManager.increaseBudget(inputIncome.value)
+    budgetManager.increaseBalance(income.amount)
+    // displayBudget()
+    displayBalance()
     clearIncomeInput()
     incomeManager.renderIncomes(incomeManager.incomeArray)
     displayAverageIncome()
