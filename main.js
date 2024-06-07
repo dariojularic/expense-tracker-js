@@ -3,7 +3,7 @@ import { format } from "date-fns"
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
 
-
+// izbacit budget, display funkcije, reduce umjesto expenses= 0, disable button umjesto toastify, get funkcije umjesto state
 
 const totalBudget = document.querySelector(".total-budget");
 const totalExpenses = document.querySelector(".total-expenses");
@@ -18,13 +18,6 @@ const incomeForm = document.querySelector(".add-income")
 const incomeList = document.querySelector(".income-list");
 const transactionList = document.querySelector(".transaction-list");
 const averageIncomeParagraph = document.querySelector(".average-income");
-
-// kako pisat id?
-// kako ne ponavljat css code? css varijable
-// jel render funkcije primaju argument array ili po defaultu koriste this.array??
-// cesto koristim parseInt. jel to ok?
-// koji manager povecava budget kad dodam income??
-// sta ako dodam budget poslije income?
 
 class Transaction {
   constructor(cost, purpose) {
@@ -68,7 +61,8 @@ class BudgetManager {
   setBudget(budget) {
     this.budget = budget
   }
-
+  // reduce metoda
+  // this.expenses
   calculateExpenses(transactionsArray) {
     this.expenses = 0
     transactionsArray.forEach(transaction => {
@@ -117,6 +111,11 @@ class IncomeManager {
 
 function displayBudget() {
   totalBudget.textContent = `$${budgetManager.budget}`
+}
+
+// ovo umjesto display funkcija
+function updateTextContent(element, value) {
+  element.textContent = value
 }
 
 function displayExpenses() {
@@ -189,8 +188,8 @@ budgetForm.addEventListener("submit", (event) => {
 transactionForm.addEventListener("submit", (event) => {
   event.preventDefault()
   // ovaj dio jos treba doradit
-  if (inputTransactionCost.value === "") {
-    toastifyAlert()
+  if (!inputTransactionCost.value) {
+    return toastifyAlert()
   }
 
   if (inputTransactionPurpose.value === "") {
