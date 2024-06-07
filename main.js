@@ -5,10 +5,10 @@ import "toastify-js/src/toastify.css"
 
 // izbacit budget, display funkcije, reduce umjesto expenses= 0, disable button umjesto toastify, get funkcije umjesto state
 
-const totalBudget = document.querySelector(".total-budget");
+// const totalBudget = document.querySelector(".total-budget");
 const totalExpenses = document.querySelector(".total-expenses");
 const totalBalance = document.querySelector(".total-balance");
-const inputBudget = document.querySelector(".input-budget");
+// const inputBudget = document.querySelector(".input-budget");
 const inputTransactionPurpose = document.querySelector(".input-transaction-purpose");
 const inputTransactionCost = document.querySelector(".input-transaction-cost");
 const inputIncome = document.querySelector(".input-income");
@@ -53,14 +53,14 @@ class TransactionManager {
 
 class BudgetManager {
   constructor() {
-    this.budget = 0
+    // this.budget = 0
     this.expenses = 0
     this.balance = 0
   }
 
-  setBudget(budget) {
-    this.budget = budget
-  }
+  // setBudget(budget) {
+  //   this.budget = budget
+  // }
   // reduce metoda
   // this.expenses
   calculateExpenses(transactionsArray) {
@@ -71,11 +71,11 @@ class BudgetManager {
   }
   
   setBalance() {
-    this.balance = parseInt(this.budget - this.expenses)
+    this.balance = parseInt(this.balance - this.expenses)
   }
 
-  increaseBudget(income) {
-    this.budget = parseInt(this.budget) + parseInt(income)
+  increaseBalance(income) {
+    this.balance += parseInt(this.budget) + parseInt(income)
   }
 }
 
@@ -100,22 +100,22 @@ class IncomeManager {
     this.incomeArray = this.incomeArray.filter(income => income.id !== incomeId)
   }
 
-  renderIncomes(incomeArray) {
+  renderIncomes() {
     incomeList.innerHTML = ""
-    incomeArray.forEach(income => {
+    this.incomeArray.forEach(income => {
       const html = `<li class="income-list-item" data-id="${income.id}"><span>${income.amount}$</span> <span>${format(income.date, "HH:mm")}</span> <span>${format(income.date, "dd/MM/yyyy")}</span> <i class="fa-solid fa-circle-xmark delete-btn"></i></li>`;
       incomeList.insertAdjacentHTML("afterbegin", html)
     })
   }
 }
 
-function displayBudget() {
-  totalBudget.textContent = `$${budgetManager.budget}`
-}
-
 // ovo umjesto display funkcija
 function updateTextContent(element, value) {
   element.textContent = value
+}
+
+function displayBudget() {
+  totalBudget.textContent = `$${budgetManager.budget}`
 }
 
 function displayExpenses() {
