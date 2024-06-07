@@ -173,7 +173,6 @@ displayExpenses()
 
 budgetForm.addEventListener("submit", (event) => {
   event.preventDefault()
-  const date = new Date()
   if (inputBudget.value !== "") {
     budgetManager.setBudget(inputBudget.value)
     budgetManager.setBalance()
