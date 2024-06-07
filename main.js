@@ -238,7 +238,7 @@ incomeForm.addEventListener("submit", (event) => {
     // budgetManager.increaseBudget(inputIncome.value)
     budgetManager.increaseBalance(income.amount)
     // displayBudget()
-    displayBalance()
+    updateTextContent(totalBalance, budgetManager.balance)
     clearIncomeInput()
     incomeManager.renderIncomes(incomeManager.incomeArray)
     displayAverageIncome()
