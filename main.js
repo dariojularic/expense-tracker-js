@@ -65,8 +65,8 @@ class BudgetManager {
     this.expenses = newExpenses;
   }
   
-  setBalance() {
-    this.balance = parseInt(this.balance - this.expenses)
+  setBalance(transaction) {
+    this.balance = parseInt(this.balance - transaction)
   }
 
   increaseBalance(income) {
@@ -117,10 +117,6 @@ function updateTextContent(element, value) {
   element.textContent = "$" + value
 }
 
-function displayAverageIncome() {
-  averageIncomeParagraph.textContent = `$${averageIncome(incomeManager.incomeArray)}`
-}
-
 function clearTransactionInput() {
   inputTransactionCost.value = ""
   inputTransactionPurpose.value = ""
@@ -165,13 +161,13 @@ transactionForm.addEventListener("submit", (event) => {
   event.preventDefault() 
   if (parseInt(inputTransactionCost.value) > budgetManager.balance) return toastifyAlert()
   const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
-  clearTransactionInput()
   transactionManager.addTransaction(transaction)
   budgetManager.calculateExpenses(transactionManager.transactionArray)
-  budgetManager.setBalance()
+  budgetManager.setBalance(inputTransactionCost.value)
   updateTextContent(totalBalance, budgetManager.balance)
   updateTextContent(totalExpenses, budgetManager.expenses)
   transactionManager.renderTransactions()
+  clearTransactionInput()
   addTransactionBtn.disabled = true
 })
 
@@ -189,7 +185,6 @@ incomeForm.addEventListener("submit", (event) => {
   updateTextContent(totalBalance, budgetManager.balance)
   clearIncomeInput()
   incomeManager.renderIncomes(incomeManager.incomeArray)
-  // displayAverageIncome()
   updateTextContent(averageIncomeParagraph, incomeManager.averageIncome())
   incomeBtn.disabled = true
 })
