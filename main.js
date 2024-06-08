@@ -123,7 +123,7 @@ function clearIncomeInput() {
 
 function toastifyAlert() {
   Toastify({
-    text: "Something is wrong...",
+    text: "You don't have enough money",
     duration: 3000,
     position: "center",
     offset: {
@@ -180,6 +180,8 @@ transactionForm.addEventListener("submit", (event) => {
     updateTextContent(totalBalance, budgetManager.balance)
     updateTextContent(totalExpenses, budgetManager.expenses)
     transactionManager.renderTransactions()
+  } else {
+    toastifyAlert()
   }
 })
 
