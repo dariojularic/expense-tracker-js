@@ -16,37 +16,25 @@
           <h3>Add income</h3>
           <label for="add-income">*Your income</label>
           <input type="number" name="add-income" class="input-income" id="add-income" placeholder="1000$">
-          <!-- <input type="submit" value="Add Income" class="income-btn"> -->
           <button disabled class="income-btn">Add Income</button>
         </form>
-        <!-- <form action="" class="edit-budget">
-          <h3>Edit Budget</h3>
-          <label for="edit-budget">Your budget</label>
-          <input type="number" name="edit-budget" class="input-budget" id="edit-budget" placeholder="5000$">
-          <input type="submit" value="Set Budget" class="set-budget">
-        </form> -->
+
         <form action="" class="add-transaction">
           <h3>Add Transaction</h3>
           <div class="transaction">
             <div class="transaction-purpose">
               <label for="transaction-purpose">*Transaction Purpose</label>
-              <input type="text" name="transaction-purpose" class="input-transaction-purpose" id="transaction-purpose" placeholder="Food, drinks, gas, etc...">
+              <input type="text" name="transaction-purpose" autocomplete="off" class="input-transaction-purpose" id="transaction-purpose" placeholder="Food, drinks, gas, etc...">
             </div>
+
             <div class="transaction-cost">
               <label for="transaction-cost">*Transaction Cost</label>
               <input type="number" name="transaction-cost" class="input-transaction-cost" id="transaction-cost" placeholder="250$">
             </div>
           </div>
-          <!-- <input type="submit" value="Add Transaction" class="submit-btn"> -->
           <button class="submit-btn" disabled >Add Transaction</button>
         </form>
-        <!-- <div class="budget">
-          <i class="fa-solid fa-credit-card"></i> 
-          <div class="budget-show">
-            <p class="total-budget"></p>
-            <p>Budget</p>
-          </div>
-        </div> -->
+
         <div class="expenses">
           <i class="fa-solid fa-coins"></i>
           <div class="expenses-show">
@@ -54,6 +42,7 @@
             <p>Expenses</p>
           </div>
         </div>
+
         <div class="balance">
           <i class="fa-solid fa-sack-dollar"></i>
           <div class="balance-show">
@@ -61,6 +50,7 @@
             <p>Balance</p>
           </div>
         </div>
+
         <div class="income">
           <i class="fa-solid fa-sack-dollar"></i>
           <div class="income-show">
@@ -77,5 +67,3 @@
     <script type="module" src="/main.js"></script>
   </body>
 </html>
-
-<!-- input id -->

@@ -102,6 +102,14 @@ class IncomeManager {
       incomeList.insertAdjacentHTML("afterbegin", html)
     })
   }
+
+  averageIncome() {
+    let total = 0;
+    for(let i = 0; i < this.incomeArray.length; i++) {
+      total += parseInt(this.incomeArray[i].amount)
+    }
+    return Math.floor(total / this.incomeArray.length)
+  }
 }
 
 // ovo umjesto display funkcija
@@ -149,8 +157,7 @@ updateTextContent(totalBalance, budgetManager.balance)
 updateTextContent(totalExpenses, budgetManager.expenses)
 
 transactionForm.addEventListener("input", (event) => {
-  event.preventDefault()
-  if (inputTransactionCost.value > 0 && inputTransactionPurpose ) addTransactionBtn.disabled = false
+  if (inputTransactionCost.value > 0 && inputTransactionPurpose.value ) addTransactionBtn.disabled = false
   else addTransactionBtn.disabled = true
 })
 
@@ -169,7 +176,6 @@ transactionForm.addEventListener("submit", (event) => {
 })
 
 incomeForm.addEventListener("input", (event) => {
-  event.preventDefault()
   let incomeInput = event.target.value
   if (incomeInput  && inputIncome.value > 0) incomeBtn.disabled = false
   else incomeBtn.disabled = true
@@ -183,7 +189,8 @@ incomeForm.addEventListener("submit", (event) => {
   updateTextContent(totalBalance, budgetManager.balance)
   clearIncomeInput()
   incomeManager.renderIncomes(incomeManager.incomeArray)
-  displayAverageIncome()
+  // displayAverageIncome()
+  updateTextContent(averageIncomeParagraph, incomeManager.averageIncome())
   incomeBtn.disabled = true
 })
 
