@@ -72,17 +72,6 @@ body {
   padding: 16px;
 }
 
-.set-budget {
-  padding: 8px 16px;
-  background-color: rgb(75, 112, 222);
-  border-radius: 16px;
-  color: white;
-  font-weight: 700;
-  font-size: 20px;
-  border: none;
-  cursor: pointer;
-}
-
 .income-btn {
   padding: 8px 16px;
   background-color: rgb(75, 112, 222);
@@ -97,21 +86,6 @@ body {
 .income-btn:disabled {
   background-color: gray;
   cursor: auto;
-}
-
-/* .income-btn:hover {
-  background-color: rgb(54, 97, 229);
-} */
-
-.set-budget:hover {
-  background-color: rgb(54, 97, 229);
-}
-
-.input-budget {
-  width: 90%;
-  height: 40px;
-  border-radius: 8px;
-  border: 1px solid;
 }
 
 .transaction {
@@ -143,7 +117,6 @@ body {
 
 .submit-btn {
   width: 50%;
-  /* align-self: center; */
   padding: 8px 16px;
   background-color: rgb(75, 112, 222);
   border-radius: 16px;
@@ -159,9 +132,6 @@ body {
   cursor: auto;
 }
 
-/* .submit-btn:hover {
-  background-color: rgb(54, 97, 229);
-} */
 
 h3 {
   font-size: 32px;
@@ -173,9 +143,6 @@ i {
   color: rgba(40, 164, 40, 0.9);
 }
 
-.budget-show {
-  padding-left: 16px;
-}
 .balance-show {
   padding-left: 16px;
 }
