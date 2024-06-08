@@ -16,6 +16,7 @@ const incomeList = document.querySelector(".income-list");
 const transactionList = document.querySelector(".transaction-list");
 const averageIncomeParagraph = document.querySelector(".average-income");
 const addTransactionBtn = document.querySelector(".submit-btn");
+const incomeBtn = document.querySelector(".income-btn");
 // addTransactionBtn.disabled = true
 
 class Transaction {
@@ -149,55 +150,41 @@ updateTextContent(totalExpenses, budgetManager.expenses)
 
 transactionForm.addEventListener("input", (event) => {
   event.preventDefault()
-  if (inputTransactionCost && inputTransactionPurpose) {
-    // addTransactionBtn.removeAttribute("disabled")
-  }
+  if (inputTransactionCost.value > 0 && inputTransactionPurpose ) addTransactionBtn.disabled = false
+  else addTransactionBtn.disabled = true
 })
 
 transactionForm.addEventListener("submit", (event) => {
+  event.preventDefault() 
+  if (parseInt(inputTransactionCost.value) > budgetManager.balance) return toastifyAlert()
+  const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
+  clearTransactionInput()
+  transactionManager.addTransaction(transaction)
+  budgetManager.calculateExpenses(transactionManager.transactionArray)
+  budgetManager.setBalance()
+  updateTextContent(totalBalance, budgetManager.balance)
+  updateTextContent(totalExpenses, budgetManager.expenses)
+  transactionManager.renderTransactions()
+  addTransactionBtn.disabled = true
+})
+
+incomeForm.addEventListener("input", (event) => {
   event.preventDefault()
-  // ovaj dio jos treba doradit
-  if (!inputTransactionCost.value) {
-    console.log(addTransactionBtn)
-    return toastifyAlert()
-  }
-  
-  if (inputTransactionPurpose.value === "") {
-    toastifyAlert()
-  }
-  
-  if (parseInt(inputTransactionCost.value) > budgetManager.budget) {
-    toastifyAlert()
-  }
-  
-  if (inputTransactionCost.value !== "" && inputTransactionPurpose.value !== "" && parseInt(inputTransactionCost.value) <= budgetManager.balance) {
-    console.log(addTransactionBtn)
-    const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
-    clearTransactionInput()
-    transactionManager.addTransaction(transaction)
-    budgetManager.calculateExpenses(transactionManager.transactionArray)
-    budgetManager.setBalance()
-    updateTextContent(totalBalance, budgetManager.balance)
-    updateTextContent(totalExpenses, budgetManager.expenses)
-    transactionManager.renderTransactions()
-  } else {
-    toastifyAlert()
-  }
+  let incomeInput = event.target.value
+  if (incomeInput  && inputIncome.value > 0) incomeBtn.disabled = false
+  else incomeBtn.disabled = true
 })
 
 incomeForm.addEventListener("submit", (event) => {
   event.preventDefault()
-  if (inputIncome.value !== "") {
-    const income = new Income(inputIncome.value)
-    incomeManager.addIncome(income)
-    budgetManager.increaseBalance(income.amount)
-    updateTextContent(totalBalance, budgetManager.balance)
-    clearIncomeInput()
-    incomeManager.renderIncomes(incomeManager.incomeArray)
-    displayAverageIncome()
-  } else {
-    toastifyAlert()
-  }
+  const income = new Income(inputIncome.value)
+  incomeManager.addIncome(income)
+  budgetManager.increaseBalance(income.amount)
+  updateTextContent(totalBalance, budgetManager.balance)
+  clearIncomeInput()
+  incomeManager.renderIncomes(incomeManager.incomeArray)
+  displayAverageIncome()
+  incomeBtn.disabled = true
 })
 
 transactionList.addEventListener("click", (event) => {

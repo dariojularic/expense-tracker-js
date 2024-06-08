@@ -94,9 +94,14 @@ body {
   cursor: pointer;
 }
 
-.income-btn:hover {
-  background-color: rgb(54, 97, 229);
+.income-btn:disabled {
+  background-color: gray;
+  cursor: auto;
 }
+
+/* .income-btn:hover {
+  background-color: rgb(54, 97, 229);
+} */
 
 .set-budget:hover {
   background-color: rgb(54, 97, 229);
@@ -149,9 +154,14 @@ body {
   cursor: pointer;
 }
 
-.submit-btn:hover {
-  background-color: rgb(54, 97, 229);
+.submit-btn:disabled {
+  background-color: gray;
+  cursor: auto;
 }
+
+/* .submit-btn:hover {
+  background-color: rgb(54, 97, 229);
+} */
 
 h3 {
   font-size: 32px;
