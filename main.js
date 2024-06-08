@@ -10,7 +10,6 @@ const totalBalance = document.querySelector(".total-balance");
 const inputTransactionPurpose = document.querySelector(".input-transaction-purpose");
 const inputTransactionCost = document.querySelector(".input-transaction-cost");
 const inputIncome = document.querySelector(".input-income");
-const budgetForm = document.querySelector(".edit-budget");
 const transactionForm = document.querySelector(".add-transaction");
 const incomeForm = document.querySelector(".add-income")
 const incomeList = document.querySelector(".income-list");
