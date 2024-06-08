@@ -3,7 +3,7 @@ import { format } from "date-fns"
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
 
-// izbacit budget, display funkcije, reduce umjesto expenses= 0, disable button umjesto toastify, get funkcije umjesto state
+// provjerit set funkcije, provjerit forme i single binding kad imam 2 inputa
 
 const totalExpenses = document.querySelector(".total-expenses");
 const totalBalance = document.querySelector(".total-balance");
@@ -17,7 +17,6 @@ const transactionList = document.querySelector(".transaction-list");
 const averageIncomeParagraph = document.querySelector(".average-income");
 const addTransactionBtn = document.querySelector(".submit-btn");
 const incomeBtn = document.querySelector(".income-btn");
-// addTransactionBtn.disabled = true
 
 class Transaction {
   constructor(cost, purpose) {
@@ -57,6 +56,14 @@ class BudgetManager {
     this.balance = 0
   }
 
+  get totalBalance() {
+    return this.balance
+  }
+
+  get totalExpenses() {
+    return this.expenses
+  }
+
   calculateExpenses(transactionsArray) {
     let newExpenses = 0
     transactionsArray.forEach(transaction => {
@@ -66,7 +73,7 @@ class BudgetManager {
   }
   
   setBalance(transaction) {
-    this.balance = parseInt(this.balance - transaction)
+    this.balance = parseInt(this.totalBalance - transaction)
   }
 
   increaseBalance(income) {
@@ -112,7 +119,6 @@ class IncomeManager {
   }
 }
 
-// ovo umjesto display funkcija
 function updateTextContent(element, value) {
   element.textContent = "$" + value
 }
@@ -138,19 +144,11 @@ function toastifyAlert() {
   }).showToast();
 }
 
-function averageIncome(array) {
-  let total = 0;
-  for(let i = 0; i < array.length; i++) {
-    total += parseInt(array[i].amount)
-  }
-  return Math.floor(total / array.length)
-}
-
 const transactionManager = new TransactionManager
 const budgetManager = new BudgetManager
 const incomeManager = new IncomeManager
-updateTextContent(totalBalance, budgetManager.balance)
-updateTextContent(totalExpenses, budgetManager.expenses)
+updateTextContent(totalBalance, budgetManager.totalBalance)
+updateTextContent(totalExpenses, budgetManager.totalExpenses)
 
 transactionForm.addEventListener("input", (event) => {
   if (inputTransactionCost.value > 0 && inputTransactionPurpose.value ) addTransactionBtn.disabled = false
@@ -164,8 +162,8 @@ transactionForm.addEventListener("submit", (event) => {
   transactionManager.addTransaction(transaction)
   budgetManager.calculateExpenses(transactionManager.transactionArray)
   budgetManager.setBalance(inputTransactionCost.value)
-  updateTextContent(totalBalance, budgetManager.balance)
-  updateTextContent(totalExpenses, budgetManager.expenses)
+  updateTextContent(totalBalance, budgetManager.totalBalance)
+  updateTextContent(totalExpenses, budgetManager.totalExpenses)
   transactionManager.renderTransactions()
   clearTransactionInput()
   addTransactionBtn.disabled = true
@@ -182,7 +180,7 @@ incomeForm.addEventListener("submit", (event) => {
   const income = new Income(inputIncome.value)
   incomeManager.addIncome(income)
   budgetManager.increaseBalance(income.amount)
-  updateTextContent(totalBalance, budgetManager.balance)
+  updateTextContent(totalBalance, budgetManager.totalBalance)
   clearIncomeInput()
   incomeManager.renderIncomes(incomeManager.incomeArray)
   updateTextContent(averageIncomeParagraph, incomeManager.averageIncome())
