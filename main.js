@@ -4,6 +4,7 @@ import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
 
 // provjerit set funkcije, provjerit forme i single binding kad imam 2 inputa
+// sta napisat pod opis na githubu?
 
 const totalExpenses = document.querySelector(".total-expenses");
 const totalBalance = document.querySelector(".total-balance");
