@@ -151,18 +151,31 @@ const incomeManager = new IncomeManager
 updateTextContent(totalBalance, budgetManager.totalBalance)
 updateTextContent(totalExpenses, budgetManager.totalExpenses)
 
-transactionForm.addEventListener("input", (event) => {
-  if (inputTransactionCost.value > 0 && inputTransactionPurpose.value ) addTransactionBtn.disabled = false
+// let nesto = event.target.value
+// let drugo = event.target.value
+// 2 event listenera, jedan za svaki input
+let purposeInput;
+let costInput;
+inputTransactionPurpose.addEventListener("input", (event) => {
+  purposeInput = event.target.value
+})
+
+inputTransactionCost.addEventListener("input", (event) => {
+  costInput = event.target.value
+})
+
+transactionForm.addEventListener("input", () => {
+  if (purposeInput && costInput > 0 ) addTransactionBtn.disabled = false
   else addTransactionBtn.disabled = true
 })
 
 transactionForm.addEventListener("submit", (event) => {
   event.preventDefault() 
-  if (parseInt(inputTransactionCost.value) > budgetManager.balance) return toastifyAlert()
-  const transaction = new Transaction(inputTransactionCost.value, inputTransactionPurpose.value)
+  if (parseInt(costInput) > budgetManager.balance) return toastifyAlert()
+  const transaction = new Transaction(costInput, purposeInput)
   transactionManager.addTransaction(transaction)
   budgetManager.calculateExpenses(transactionManager.transactionArray)
-  budgetManager.setBalance(inputTransactionCost.value)
+  budgetManager.setBalance(costInput)
   updateTextContent(totalBalance, budgetManager.totalBalance)
   updateTextContent(totalExpenses, budgetManager.totalExpenses)
   transactionManager.renderTransactions()
@@ -170,15 +183,16 @@ transactionForm.addEventListener("submit", (event) => {
   addTransactionBtn.disabled = true
 })
 
+let incomeInput;
 incomeForm.addEventListener("input", (event) => {
-  let incomeInput = event.target.value
+  incomeInput = event.target.value
   if (incomeInput  && inputIncome.value > 0) incomeBtn.disabled = false
   else incomeBtn.disabled = true
 })
 
 incomeForm.addEventListener("submit", (event) => {
   event.preventDefault()
-  const income = new Income(inputIncome.value)
+  const income = new Income(incomeInput)
   incomeManager.addIncome(income)
   budgetManager.increaseBalance(income.amount)
   updateTextContent(totalBalance, budgetManager.totalBalance)
