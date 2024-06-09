@@ -3,8 +3,6 @@ import { format } from "date-fns"
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
 
-// provjerit get funkcije
-
 const totalExpenses = document.querySelector(".total-expenses");
 const totalBalance = document.querySelector(".total-balance");
 const inputTransactionPurpose = document.querySelector(".input-transaction-purpose");
@@ -46,7 +44,6 @@ class TransactionManager {
       const html = `<li class="transaction-list-item" data-id="${transaction.id}"><span>${transaction.purpose}</span> <span>${transaction.cost}$</span> <span>${format(transaction.date, "HH:mm")}</span> <span>${format(transaction.date, "dd/MMMM/yyyy")}</span> <i class="fa-solid fa-circle-xmark delete-btn"></i></li>`;
       transactionList.insertAdjacentHTML("beforeend", html)
     })
-
   }
 }
 
