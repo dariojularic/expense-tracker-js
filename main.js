@@ -3,7 +3,7 @@ import { format } from "date-fns"
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
 
-// provjerit get funkcije, provjerit forme i single binding kad imam 2 inputa
+// provjerit get funkcije
 // sta napisat pod opis na githubu?
 
 const totalExpenses = document.querySelector(".total-expenses");
@@ -151,9 +151,6 @@ const incomeManager = new IncomeManager
 updateTextContent(totalBalance, budgetManager.totalBalance)
 updateTextContent(totalExpenses, budgetManager.totalExpenses)
 
-// let nesto = event.target.value
-// let drugo = event.target.value
-// 2 event listenera, jedan za svaki input
 let purposeInput;
 let costInput;
 inputTransactionPurpose.addEventListener("input", (event) => {
