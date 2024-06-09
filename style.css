@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-
 body {
   background-color: rgb(230, 230, 230);
   font-family: 'Roboto', sans-serif;
@@ -132,7 +131,6 @@ body {
   cursor: auto;
 }
 
-
 h3 {
   font-size: 32px;
   margin: 16px;
@@ -146,6 +144,7 @@ i {
 .balance-show {
   padding-left: 16px;
 }
+
 .expenses-show {
   padding-left: 16px;
 }
