@@ -4,7 +4,6 @@ import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
 
 // provjerit get funkcije
-// sta napisat pod opis na githubu?
 
 const totalExpenses = document.querySelector(".total-expenses");
 const totalBalance = document.querySelector(".total-balance");
